@@ -1,0 +1,97 @@
+.search-box {
+  background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  padding: 20px;
+  width: 60%;
+  margin: 20px 210px;
+  position: relative;
+  right: 400px;
+  color: white;
+}
+
+.search-box__text {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  color: white;
+  margin-bottom: 5px;
+}
+
+
+.input-group input {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+
+
+.input-group label, .input-group input {
+  display: block;
+  font-size: 1.2em;
+
+}
+
+.date-inputs {
+  display: flex;
+  gap: 80px;
+  margin-bottom: 20px;
+}
+
+.date-inputs .input-group input {
+  width: 100%; 
+}
+
+.input-group {
+  margin-bottom: 40px; 
+}
+
+.search-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.rooms-options {
+  display: flex;
+  gap: 120px;
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+}
+
+.input-group select {
+  width: 50%;
+  padding: 6px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 1.2em;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input-group select:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+

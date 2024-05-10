@@ -1,0 +1,63 @@
+.container-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px auto;
+    color: #fff;
+    background: -webkit-linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), -webkit-radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);
+    background: -o-linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), -o-radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);
+    background: -moz-linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), -moz-radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);
+    background: linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);
+    padding: 20px;
+    border-radius: 15px;
+    width: 40%;
+}
+
+.heading {
+    color: #ffffff;
+    /* Green text */
+    font-size: 24px;
+    /* Larger text */
+    margin-bottom: 20px;
+    /* Space below the heading */
+}
+
+.input-field {
+    font-size: 20px;
+    padding: 15px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    /* Grey border */
+    width: 100%;
+    /* Full width */
+    margin-bottom: 20px;
+    /* Space below the input field */
+}
+
+.profile-name {
+    background-color: #4237e6;
+    /* Green background */
+    color: white;
+    /* White text */
+    padding: 15px 32px;
+    /* Add some padding */
+    text-align: center;
+    /* Center the text */
+    text-decoration: none;
+    /* Remove underline */
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    /* Change cursor to pointer when hovering over the button */
+    border-radius: 12px;
+    /* Rounded corners */
+    transition-duration: 0.4s;
+    /* Transition effect */
+}
+
+button:hover {
+    background-color: #385af5;
+    /* Change background color when hovering over the button */
+}

@@ -1,0 +1,96 @@
+.popular-destinations {
+    /* border: 2px solid red; */
+    height: auto;
+    margin: 80px auto 0;
+    width: 73%;
+}
+
+.popular-destinations h2 {
+    margin-bottom: 20px;
+}
+
+.city-cards1,
+.city-cards2,
+.city-cards3 {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.city-card {
+    width: 360px;
+    position: relative;
+}
+
+.city-card img {
+    width: 370px;
+    height: 420px;
+    object-fit: cover;
+}
+
+
+.city-card:hover {
+    opacity: 0.9;
+}
+
+
+.city-card-side,
+.city-card-side-side {
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1px;
+    position: relative;
+    left: 10px;
+}
+
+.city-card-side:hover {
+    opacity: 0.9;
+
+}
+
+.city-card-side img,
+.city-card-side-side img {
+    width: 360px;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    position: relative;
+    right: 5px;
+}
+
+
+img {
+    border-radius: 20px;
+}
+
+
+.image-text {
+    position: absolute;
+    bottom: 60px;
+    left: 8px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    /* background-color: rgba(0, 0, 0, 0.5);  */
+    padding: 10px;
+}
+
+.image-subtext {
+    position: absolute;
+    bottom: 25px;
+    left: 10px;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    /* this will add some space around the text */
+}
+
+.image-container img {
+    transition: transform 0.3s ease-in-out; /* this will animate the transform property */
+  }
+  
+  .image-container:hover img {
+    transform: scale(1.1); /* adjust this value as needed */
+  }
