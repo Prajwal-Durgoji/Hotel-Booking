@@ -8,6 +8,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
@@ -15,6 +17,7 @@ import jakarta.persistence.OneToMany;
 public class SearchParameters {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String location;
     private String checkInDate;
@@ -23,6 +26,7 @@ public class SearchParameters {
     private String hotelName;
     private double price;
     private String imageUrl;
+    private String area;
     
     @Column(columnDefinition = "LONGTEXT")
     private String hotelInformation;
@@ -31,69 +35,112 @@ public class SearchParameters {
     @JsonManagedReference
     private Set<Amenity> amenities;
     
-    
-    
+    @OneToMany(mappedBy = "searchParameters", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private Set<NearbyPlace> nearby;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getCheckInDate() {
+		return checkInDate;
+	}
+
+	public void setCheckInDate(String checkInDate) {
+		this.checkInDate = checkInDate;
+	}
+
+	public String getCheckOutDate() {
+		return checkOutDate;
+	}
+
+	public void setCheckOutDate(String checkOutDate) {
+		this.checkOutDate = checkOutDate;
+	}
+
+	public String getRoomOption() {
+		return roomOption;
+	}
+
+	public void setRoomOption(String roomOption) {
+		this.roomOption = roomOption;
+	}
+
+	public String getHotelName() {
+		return hotelName;
+	}
+
+	public void setHotelName(String hotelName) {
+		this.hotelName = hotelName;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
 
 	public String getHotelInformation() {
 		return hotelInformation;
 	}
+
 	public void setHotelInformation(String hotelInformation) {
 		this.hotelInformation = hotelInformation;
 	}
+
 	public Set<Amenity> getAmenities() {
 		return amenities;
 	}
+
 	public void setAmenities(Set<Amenity> amenities) {
 		this.amenities = amenities;
 	}
-	public String getImageUrl() {
-		return imageUrl;
+
+	public Set<NearbyPlace> getNearby() {
+		return nearby;
 	}
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+
+	public void setNearby(Set<NearbyPlace> nearby) {
+		this.nearby = nearby;
 	}
-	public String getHotelName() {
-		return hotelName;
-	}
-	public void setHotelName(String hotelName) {
-		this.hotelName = hotelName;
-	}
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getLocation() {
-		return location;
-	}
-	public void setLocation(String location) {
-		this.location = location;
-	}
-	public String getCheckInDate() {
-		return checkInDate;
-	}
-	public void setCheckInDate(String checkInDate) {
-		this.checkInDate = checkInDate;
-	}
-	public String getCheckOutDate() {
-		return checkOutDate;
-	}
-	public void setCheckOutDate(String checkOutDate) {
-		this.checkOutDate = checkOutDate;
-	}
-	public String getRoomOption() {
-		return roomOption;
-	}
-	public void setRoomOption(String roomOption) {
-		this.roomOption = roomOption;
-	}
+	
+    
+    
+    
+    
+
+	
 	
 
 }

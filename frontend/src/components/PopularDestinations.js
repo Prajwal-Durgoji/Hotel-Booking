@@ -7,7 +7,7 @@ class PopularDestinations extends Component {
         return (
             <div className="popular-destinations">
                 <h2>Popular Destinations</h2>
-                <p>We have selected some best locations around the world for women.</p>
+                <p>We have selected some best locations around the world.</p>
                 <div className="city-cards1">
                     <div className="city-card">
                         <img src="/images/mumbai.jpeg" alt="City 1" />

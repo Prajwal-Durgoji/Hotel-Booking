@@ -1,43 +1,45 @@
 
-import React, { Component } from 'react'
+import React, { Component, useContext } from 'react'
 import './NavBar.css'
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { UsernameContext } from '../helpers/UsernameContext';
+
 
 class NavBar extends Component {
-    // constructor(props) {
-    //     super(props)
+    handleLoginClick = () => {
+        this.props.navigate('/login');
+    };
 
-    //     this.state = {
+    componentDidUpdate(prevProps) {
+        if (prevProps.username !== this.props.username) {
+            this.forceUpdate(); 
+        }
+    }
 
-    //     }
-    // }
-
-
-
-
-
-
+    handleLogoClick = () => {
+        this.props.navigate('/');
+    };
 
     render() {
-        const { location } = this.props;
-        const isHomePage = location.pathname === '/';
-
+        const { username } = this.props;
         return (
             <nav className="navbar">
-                <h1 className="navbar-heading">HotelShare.com</h1>
+                <h1 className="navbar-heading" onClick={this.handleLogoClick}>Rentify</h1>
                 <div className="button-group">
-                    <button className='b1' disabled={!isHomePage}>Login</button>
-                    <button className='b1' disabled={!isHomePage}>Register</button>
+                    <button className='b1' onClick={this.handleLoginClick} disabled={!!username}>Login</button>
+                    <button className='b1' disabled={!!username}>Register</button>
                 </div>
-
+                {username && <div className="username-display">Welcome, {username}!</div>}
             </nav>
-        )
+        );
     }
 }
 
-const NavBarWithLocation = () => {
-    const location = useLocation();
-    return <NavBar location={location} />;
+const NavBarWithNavigate = () => {
+    const navigate = useNavigate();
+    const { username } = useContext(UsernameContext);
+    console.log("Username: ", username);
+    return <NavBar navigate={navigate} username={username} />;
 }
 
-export default NavBarWithLocation
+export default NavBarWithNavigate;

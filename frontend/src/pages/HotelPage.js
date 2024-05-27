@@ -32,7 +32,7 @@ class HotelPage extends PureComponent {
                         <h2>{this.state.hotel.hotelName}</h2>
                         <p>{this.state.hotel.hotelInformation}</p>
                         <div className="amenities-container">
-                            {this.state.hotel.amenities.map((amenity, index) => (
+                            {this.state.hotel.amenities && this.state.hotel.amenities.map((amenity, index) => (
                                 <p key={index}>{amenity.amenity}</p>
                             ))}
                         </div>

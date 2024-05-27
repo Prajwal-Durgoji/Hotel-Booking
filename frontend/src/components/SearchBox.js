@@ -46,14 +46,14 @@ class SearchBoxClass extends PureComponent {
                         <h2>Book Rental Rooms</h2>
                     </div>
                     <div className="rooms-options">
-                        <div className="rooms-option">
+                        {/* <div className="rooms-option">
                             <input type="radio" id="share" name="room" value="share" />
                             <label htmlFor="share">Share a room</label>
                         </div>
                         <div className="rooms-option">
                             <input type="radio" id="rent" name="room" value="rent" />
                             <label htmlFor="rent">Rent a room</label>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="search-box__container">
                         <div className="search-box__input">

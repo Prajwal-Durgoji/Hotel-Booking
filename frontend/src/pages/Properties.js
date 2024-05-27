@@ -1,34 +1,35 @@
-
 import React, { PureComponent } from 'react'
-import { useLocation } from 'react-router-dom';
-import './HomePage.css';
-import { useNavigate } from 'react-router-dom';
+import './Properties.css'
 
-class HomePage extends PureComponent {
+class Properties extends PureComponent {
     constructor(props) {
         super(props)
+
         this.state = {
             hotels: []
         }
     }
 
     componentDidMount() {
-        const locationState = this.props.location.state;
-        if (locationState) {
-            this.setState({ hotels: locationState });
-            console.log("HomePage state:", locationState);
-        }
+        // Fetch the properties from the server
+        // This depends on how your API is set up
+        // For example, if you have an endpoint at 'http://localhost:8080/api/hotels':
+        fetch('http://localhost:8080/api/hotels/hotel-details')
+            .then(response => response.json())
+            .then(hotels => this.setState({ hotels }));
     }
 
-
     handleHotelClick = (hotelId) => {
-        this.props.navigate("/hotel-details", { state: hotelId });
-        console.log("Navigating to hotel details for hotelId:", hotelId);
+        // Navigate to the hotel details page
+        // This depends on how your routing is set up
+        // For example, if you're using react-router:
+        this.props.history.push(`/hotel-details/${hotelId}`);
     }
 
     render() {
         return (
             <div className="container-hotel">
+                <h1>Properties</h1>
                 {Array.isArray(this.state.hotels) && this.state.hotels.map((hotel, index) => (
                     <div key={index} className="hotel-card" onClick={() => this.handleHotelClick(hotel.id)}>
                         <img src={`http://localhost:8080/${hotel.imageUrl}`} alt={hotel.hotelName} />
@@ -53,10 +54,4 @@ class HomePage extends PureComponent {
     }
 }
 
-const HomePageWithLocation = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-    return <HomePage location={location} navigate={navigate} />
-}
-
-export default HomePageWithLocation;
+export default Properties;

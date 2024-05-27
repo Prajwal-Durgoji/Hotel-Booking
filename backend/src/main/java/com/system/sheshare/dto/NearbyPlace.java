@@ -11,25 +11,33 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Amenity {
+public class NearbyPlace {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
+
+    private String place;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "search_parameters_id")
-    
     @JsonBackReference
     private SearchParameters searchParameters;
-    private String amenity;
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
 	}
 
 	public SearchParameters getSearchParameters() {
@@ -39,16 +47,7 @@ public class Amenity {
 	public void setSearchParameters(SearchParameters searchParameters) {
 		this.searchParameters = searchParameters;
 	}
-
-	public String getAmenity() {
-		return amenity;
-	}
-
-	public void setAmenity(String amenity) {
-		this.amenity = amenity;
-	}
-
-	
     
     
+
 }

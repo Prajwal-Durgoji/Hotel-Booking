@@ -13,6 +13,7 @@ public class HotelService {
 
 	@Autowired
 	SearchParametersRepository searchParametersRepository;
+	
 
 	public List<SearchParameters> searchHotels(String location, String checkInDate, String checkOutDate) {
 		return searchParametersRepository.findByLocationAndCheckInDateAndCheckOutDate(location,
@@ -22,6 +23,14 @@ public class HotelService {
 	public SearchParameters getHotelDetails(int id) {
 		return searchParametersRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Hotel not found"));
+	}
+
+	public SearchParameters save(SearchParameters searchParameters) {
+        return searchParametersRepository.save(searchParameters);
+    }
+
+	public List<SearchParameters> getAllHotelDetails() {
+		return searchParametersRepository.findAll();
 	}
 
 }
