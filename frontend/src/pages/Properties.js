@@ -11,9 +11,6 @@ class Properties extends PureComponent {
     }
 
     componentDidMount() {
-        // Fetch the properties from the server
-        // This depends on how your API is set up
-        // For example, if you have an endpoint at 'http://localhost:8080/api/hotels':
         fetch('http://localhost:8080/api/hotels/hotel-details')
             .then(response => response.json())
             .then(hotels => this.setState({ hotels }));

@@ -1,6 +1,7 @@
 
 import React, { PureComponent } from 'react'
 import './SellerPage.css'
+import { useLocation } from 'react-router-dom';
 
 class SellerPage extends PureComponent {
     constructor(props) {
@@ -39,11 +40,15 @@ class SellerPage extends PureComponent {
         });
     }
 
+    componentDidMount() {
+        console.log('Location prop:', this.props.location);
+        const { sellerId, sellerEmail } = this.props.location.state || {};
 
-    handleViewProperties = () => {
-        
-        this.props.history.push('/properties');
+        console.log('Seller ID:', sellerId);
+        this.setState({ sellerId, sellerEmail });
+
     }
+
 
     formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -59,12 +64,14 @@ class SellerPage extends PureComponent {
         const checkInDateFormatted = this.formatDate(this.state.checkInDate);
         const checkOutDateFormatted = this.formatDate(this.state.checkOutDate);
 
+        const token = localStorage.getItem('authToken');
 
         // Send a request to the add property endpoint
         const response = await fetch('http://localhost:8080/api/hotels/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify({
                 hotelName: this.state.hotelName,
@@ -96,6 +103,7 @@ class SellerPage extends PureComponent {
                 area: '',
                 roomOption: ''
             });
+
             alert('Property added successfully');
         } else {
             // If the request was not successful, show an error message
@@ -105,59 +113,66 @@ class SellerPage extends PureComponent {
 
     render() {
         return (
-            <div>
-                <h1>Welcome to Seller Page</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Hotel Name:
+            <div className="seller-page">
+                <h1>Add Property</h1>
+
+                <form onSubmit={this.handleSubmit} className="seller-form">
+                    <div className="form-group">
+                        <label>Hotel Name:</label>
                         <input type="text" name="hotelName" onChange={this.handleInputChange} value={this.state.hotelName} />
-                    </label>
-                    <label>
-                        Price:
+                    </div>
+                    <div className="form-group">
+                        <label>Price:</label>
                         <input type="text" name="price" onChange={this.handleInputChange} value={this.state.price} />
-                    </label>
-                    <label>
-                        Image URL:
+                    </div>
+                    <div className="form-group">
+                        <label>Image URL:</label>
                         <input type="text" name="imageUrl" onChange={this.handleInputChange} value={this.state.imageUrl} />
-                    </label>
-                    <label>
-                        Check-in Date:
+                    </div>
+                    <div className="form-group">
+                        <label>Check-in Date:</label>
                         <input type="date" name="checkInDate" onChange={this.handleInputChange} value={this.state.checkInDate} />
-                    </label>
-                    <label>
-                        Check-out Date:
+                    </div>
+                    <div className="form-group">
+                        <label>Check-out Date:</label>
                         <input type="date" name="checkOutDate" onChange={this.handleInputChange} value={this.state.checkOutDate} />
-                    </label>
-                    <label>
-                        Amenities:
+                    </div>
+                    <div className="form-group">
+                        <label>Amenities:</label>
                         <input type="text" name="amenities" onChange={this.handleAmenitiesChange} value={this.state.amenities.join(',')} placeholder="Enter amenities separated by commas" />
-                    </label>
-                    <label>
-                        Room Option:
+                    </div>
+                    <div className="form-group">
+                        <label>Room Option:</label>
                         <input type="text" name="roomOption" onChange={this.handleInputChange} value={this.state.roomOption} />
-                    </label>
-                    <label>
-                        Location:
+                    </div>
+                    <div className="form-group">
+                        <label>Location:</label>
                         <input type="text" name="location" onChange={this.handleInputChange} value={this.state.location} />
-                    </label>
-                    <label>
-                        Nearby:
+                    </div>
+                    <div className="form-group">
+                        <label>Nearby:</label>
                         <input type="text" name="nearby" onChange={this.handleNearbyChange} value={this.state.nearby.join(',')} placeholder="Enter nearby places separated by commas" />
-                    </label>
-                    <label>
-                        Area:
+                    </div>
+                    <div className="form-group">
+                        <label>Area:</label>
                         <input type="text" name="area" onChange={this.handleInputChange} value={this.state.area} />
-                    </label>
-                    <label>
-                        Hotel Information:
+                    </div>
+                    <div className="form-group">
+                        <label>Hotel Information:</label>
                         <textarea name="hotelInformation" onChange={this.handleInputChange} value={this.state.hotelInformation} />
-                    </label>
-                    <input type="submit" value="Submit" />
+                    </div>
+                    <div className="form-group">
+                        <input type="submit" value="Submit" />
+                    </div>
                 </form>
-                <button onClick={this.handleViewProperties}>View Properties</button>
             </div>
         )
     }
 }
 
-export default SellerPage;
+const SellerPageWrapper = () => {
+    const location = useLocation();
+    return <SellerPage location={location} />
+}
+
+export default SellerPageWrapper;

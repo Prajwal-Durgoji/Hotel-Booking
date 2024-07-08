@@ -1,0 +1,52 @@
+.seller-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.seller-page h1 {
+    text-align: center;
+}
+
+.seller-form{
+    width: 50%;
+    margin-left: 360px;
+
+}
+
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.seller-form input[type="submit"] {
+    width: auto;
+    padding: 10px 20px;
+    font-size: small;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}

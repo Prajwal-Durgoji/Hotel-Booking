@@ -12,28 +12,37 @@ class SearchBoxClass extends PureComponent {
         }
     }
 
-
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
-
     }
 
     handleClick = async () => {
         const { location, checkInDate, checkOutDate } = this.state;
 
-        // Convert dates to dd/MM/yyyy format
+        // Ensure date format is correct
         const checkInDateFormatted = this.formatDate(checkInDate);
         const checkOutDateFormatted = this.formatDate(checkOutDate);
 
-        const response = await fetch(`http://localhost:8080/api/hotels/search?location=${location}&checkInDate=${checkInDateFormatted}&checkOutDate=${checkOutDateFormatted}`);
-        const data = await response.json();
-        this.props.navigate("/home", { state: data });  //navigate home page with data
+        console.log(`Formatted Dates: Check-In: ${checkInDateFormatted}, Check-Out: ${checkOutDateFormatted}, location: ${location}`);
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/hotels/search?location=${encodeURIComponent(location)}&checkInDate=${checkInDateFormatted}&checkOutDate=${checkOutDateFormatted}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log('Search response:', data);
+
+            this.props.navigate("/home", { state: { hotels: data} });
+        } catch (error) {
+            console.error("Failed to fetch hotels:", error);
+        }
     }
 
     formatDate = (dateString) => {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); 
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
@@ -44,16 +53,6 @@ class SearchBoxClass extends PureComponent {
                 <div className="search-box">
                     <div className="search-box__text">
                         <h2>Book Rental Rooms</h2>
-                    </div>
-                    <div className="rooms-options">
-                        {/* <div className="rooms-option">
-                            <input type="radio" id="share" name="room" value="share" />
-                            <label htmlFor="share">Share a room</label>
-                        </div>
-                        <div className="rooms-option">
-                            <input type="radio" id="rent" name="room" value="rent" />
-                            <label htmlFor="rent">Rent a room</label>
-                        </div> */}
                     </div>
                     <div className="search-box__container">
                         <div className="search-box__input">

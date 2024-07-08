@@ -1,8 +1,3 @@
-// import { createStore } from 'redux';
-// import { Provider } from 'react-redux';
-// import rootReducer from './redux/reducers';
-// const store = createStore(rootReducer);
-
 
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';

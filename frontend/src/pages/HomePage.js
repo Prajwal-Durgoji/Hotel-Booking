@@ -8,14 +8,15 @@ class HomePage extends PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            hotels: []
+            hotels: [],
         }
     }
 
     componentDidMount() {
         const locationState = this.props.location.state;
         if (locationState) {
-            this.setState({ hotels: locationState });
+            this.setState({ hotels: locationState.hotels });
+            // this.setState({ hotels: locationState.hotels, weather: locationState.weather });
             console.log("HomePage state:", locationState);
         }
     }
@@ -29,6 +30,13 @@ class HomePage extends PureComponent {
     render() {
         return (
             <div className="container-hotel">
+                {/* {this.state.weather && this.state.weather.location && (
+                    <div className="weather-info">
+                        <h2>Weather in {this.state.weather.location.name}</h2>
+                        <p>{this.state.weather.current.condition.text}</p>
+                        <p>Temperature: {this.state.weather.current.temp_c}°C</p>
+                    </div>
+                    )} */}
                 {Array.isArray(this.state.hotels) && this.state.hotels.map((hotel, index) => (
                     <div key={index} className="hotel-card" onClick={() => this.handleHotelClick(hotel.id)}>
                         <img src={`http://localhost:8080/${hotel.imageUrl}`} alt={hotel.hotelName} />
@@ -36,7 +44,7 @@ class HomePage extends PureComponent {
                             <h2>{hotel.hotelName}</h2>
                             <p>Price: ₹{hotel.price}</p>
                             <p>Rooms: {hotel.roomOption}</p>
-                            
+
                             <div className="nearby-container">
                                 {Array.from(hotel.nearby).map((place, index) => (
                                     <div key={index} className="nearby-place">
