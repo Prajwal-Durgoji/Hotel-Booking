@@ -74,3 +74,7 @@
     margin: 5px;
     font-size: 13px;
 }
+
+.price-range-value {
+    transition: all 0.3s ease-in-out;
+}

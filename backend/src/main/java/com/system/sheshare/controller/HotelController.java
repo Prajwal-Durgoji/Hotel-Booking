@@ -212,5 +212,6 @@ public class HotelController {
 		List<SearchParameters> searchParameters = hotelService.getAllHotelDetails();
 		return ResponseEntity.ok(searchParameters);
 	}
+	
 
 }

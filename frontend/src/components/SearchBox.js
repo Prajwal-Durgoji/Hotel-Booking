@@ -18,13 +18,13 @@ class SearchBoxClass extends PureComponent {
 
     handleClick = async () => {
         const { location, checkInDate, checkOutDate } = this.state;
-
+    
         // Ensure date format is correct
         const checkInDateFormatted = this.formatDate(checkInDate);
         const checkOutDateFormatted = this.formatDate(checkOutDate);
-
+    
         console.log(`Formatted Dates: Check-In: ${checkInDateFormatted}, Check-Out: ${checkOutDateFormatted}, location: ${location}`);
-
+    
         try {
             const response = await fetch(`http://localhost:8080/api/hotels/search?location=${encodeURIComponent(location)}&checkInDate=${checkInDateFormatted}&checkOutDate=${checkOutDateFormatted}`);
             if (!response.ok) {
@@ -32,17 +32,26 @@ class SearchBoxClass extends PureComponent {
             }
             const data = await response.json();
             console.log('Search response:', data);
-
-            this.props.navigate("/home", { state: { hotels: data} });
+    
+            // Fetch weather forecast for the location
+            const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location},IN&appid=c756376ecfb04f4da076b14f29711818&units=metric`);
+            if (!weatherResponse.ok) {
+                throw new Error(`HTTP error! status: ${weatherResponse.status}`);
+            }
+            const weatherData = await weatherResponse.json();
+            console.log(`Weather in ${location}: ${weatherData.weather[0].main}, ${weatherData.main.temp}°C`);
+    
+            // this.props.navigate("/home", { state: { hotels: data } });
+            this.props.navigate("/home", { state: { hotels: data, weather: weatherData } });
         } catch (error) {
-            console.error("Failed to fetch hotels:", error);
+            console.error("Failed to fetch hotels or weather:", error);
         }
     }
 
     formatDate = (dateString) => {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0'); 
+        const month = String(date.getMonth() + 1).padStart(2, '0');
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
@@ -60,9 +69,9 @@ class SearchBoxClass extends PureComponent {
                                 <label>Where</label>
                                 <select name="location" onChange={this.handleChange}>
                                     <option value="">Select a city</option>
-                                    <option value="Bangalore">Bangalore</option>
-                                    <option value="Mumbai">Mumbai</option>
-                                    <option value="Delhi">Delhi</option>
+                                    <option value="Bangalore,IN">Bangalore,IN</option>  
+                                    <option value="Mumbai,IN">Mumbai,IN</option>        
+                                    <option value="Delhi,IN">Delhi,IN</option>
                                 </select>
                             </div>
                             <div className="date-inputs">
