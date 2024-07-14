@@ -4,7 +4,8 @@
     /* border: 1px solid black; */
     margin-bottom: 10px;
     padding: 10px;
-    width: 500px; 
+    width: 100%; /* Make the card take the full width of its parent */
+    max-width: 500px;
     height: 200px;
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Shadow effect */
@@ -28,13 +29,18 @@
     justify-content: space-between;
 }
 
+
 .container-hotel {
     display: block;
     justify-content: center;
-    /* margin: 30px auto; */
-    margin: 20px auto;
-    margin-left: 480px;
+    margin: 10px auto;
+    margin-left: 710px;
+    margin-top: -520px;
+    margin-bottom: 120px;
     padding: 20px;
+    width: 34%; 
+    border: 2px solid red;
+    
 }
 
 .hotel-card .hotel-info h2 {
@@ -48,3 +54,61 @@
     font-size: 18px; /* Larger text */
     font-weight: bold;
 }
+
+.filters{
+    border: 2px solid green;
+    display: block;
+    justify-content: center;
+    background: #2c3e50; /* Dark background for a modern look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    border-radius: 8px;
+    flex-direction: column;
+    margin: 10px auto;
+    margin-left: 210px; 
+    margin-bottom: 120px;
+    padding: 20px;
+    width: 20%;
+}
+
+.filters label {
+    margin-bottom: 15px; /* Space out the filters */
+    font-weight: bold; /* Make labels bold */
+}
+
+
+.filters select,
+.filters input[type="text"] {
+    width: 80%; /* Full width to fill container */
+    padding: 8px; /* Padding for better touch */
+    margin-top: 5px; /* Space between label and input */
+    border: 1px solid #34495e; /* Subtle border */
+    border-radius: 4px; /* Match the container's rounded corners */
+    background-color: #34495e; /* Darker elements for contrast */
+    color: #ecf0f1; /* Light text for readability */
+}
+
+.filters input[type="range"]::-webkit-slider-thumb {
+    background-color: #e74c3c; /* Bright color for the slider thumb */
+}
+
+.filters select {
+    cursor: pointer; /* Indicate it's selectable */
+}
+
+.filters .price-range-value {
+    display: block; /* Ensure it's on a new line */
+    text-align: center; /* Center the price range value */
+    margin-top: 10px; /* Space after the range input */
+    font-size: 16px; /* Larger font size for visibility */
+}
+
+.weather-info {
+    background-color: #16a085; /* Different background to distinguish section */
+    padding: 10px;
+    margin-top: 20px; /* Space from the filters above */
+    border-radius: 4px; /* Consistent rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lighter shadow for this section */
+    color: #ecf0f1; /* Maintain light text for readability */
+}
+
+

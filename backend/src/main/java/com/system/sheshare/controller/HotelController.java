@@ -153,31 +153,6 @@ public class HotelController {
 	        throw new UsernameNotFoundException("Invalid user request!");
 	    }
 	}
-	
-
-
-//	@PostMapping("/login/buyer")
-//	public ResponseEntity<BuyerDetails> loginBuyer(@RequestBody BuyerDetails request) {
-//		BuyerDetails buyer = buyerDetailsService.login(request.getBuyerEmail(), request.getBuyerPassword());
-//		if (buyer != null) {
-//			System.out.println(buyer);
-//			return new ResponseEntity<>(buyer, HttpStatus.OK);
-//		} else {
-//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//		}
-//	}
-	
-
-//	@PostMapping("/login/seller")
-//	public ResponseEntity<SellerDetails> login(@RequestBody SellerDetails request) {
-//		SellerDetails seller = sellerDetailsService.login(request.getSellerEmail(), request.getSellerPassword());
-//		if (seller != null) {
-//			System.out.println(seller);
-//			return new ResponseEntity<>(seller, HttpStatus.OK);
-//		} else {
-//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//		}
-//	}
 
 	@GetMapping("/search")  //buyer
 	public ResponseEntity<List<SearchParameters>> searchHotels(@RequestParam String location,
