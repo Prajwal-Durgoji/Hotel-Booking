@@ -61,7 +61,14 @@ class PopularDestinations extends Component {
                         </div>
                     </div>
                 </div>
-
+                <div class="swatch">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
         );
     }
