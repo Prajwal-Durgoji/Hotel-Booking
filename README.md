@@ -1,3 +1,8 @@
+
+https://github.com/user-attachments/assets/b22e7c08-5fc9-429f-89d0-afc22553a8b4
+
+
+
 ## Overview
 This Hotel Management Application is a comprehensive system designed to facilitate the management of hotel operations and enhance the guest experience. It leverages a robust tech stack including Spring Boot, MySQL, RESTful APIs, and React.js to deliver a seamless and efficient platform for hotel staff and guests.
 
