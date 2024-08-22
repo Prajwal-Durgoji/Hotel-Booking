@@ -12,8 +12,4 @@ public interface UserBuyerRepository extends JpaRepository<UserBuyer, Integer> {
 
 	Optional<UserBuyer> findByEmail(String username);
 
-	
-	
-	
-
 }

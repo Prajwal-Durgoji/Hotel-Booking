@@ -13,28 +13,30 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+
 @Entity
 public class SearchParameters {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private String location;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String location;
     private String checkInDate;
     private String checkOutDate;
     private String roomOption;
     private String hotelName;
     private double price;
-    private String imageUrl;
     private String area;
+    private String imageUrl;
     
+
     @Column(columnDefinition = "LONGTEXT")
     private String hotelInformation;
-    
+
     @OneToMany(mappedBy = "searchParameters", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<Amenity> amenities;
-    
+
     @OneToMany(mappedBy = "searchParameters", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<NearbyPlace> nearby;
@@ -42,6 +44,7 @@ public class SearchParameters {
 	public int getId() {
 		return id;
 	}
+	
 
 	public void setId(int id) {
 		this.id = id;
@@ -95,20 +98,20 @@ public class SearchParameters {
 		this.price = price;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
 	public String getArea() {
 		return area;
 	}
 
 	public void setArea(String area) {
 		this.area = area;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public String getHotelInformation() {
@@ -134,27 +137,4 @@ public class SearchParameters {
 	public void setNearby(Set<NearbyPlace> nearby) {
 		this.nearby = nearby;
 	}
-	
-	
-	
-	
-    
-
-	
-
-	
-    
-    
-    
-    
-	
-    
-    
-    
-    
-    
-
-	
-	
-
 }

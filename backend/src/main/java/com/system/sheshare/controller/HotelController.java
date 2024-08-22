@@ -20,19 +20,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.system.sheshare.dto.BuyerDetails;
 import com.system.sheshare.dto.SearchParameters;
 import com.system.sheshare.dto.SellerDetails;
 import com.system.sheshare.dto.UserBuyer;
-import com.system.sheshare.dto.UserForm;
 import com.system.sheshare.dto.UserSeller;
 import com.system.sheshare.service.BuyerDetailsService;
 import com.system.sheshare.service.HotelService;
 import com.system.sheshare.service.JwtService;
 import com.system.sheshare.service.SellerDetailsService;
 import com.system.sheshare.service.UserBuyerService;
-import com.system.sheshare.service.UserFormService;
 import com.system.sheshare.service.UserSellerService;
 
 @Controller
@@ -44,17 +41,14 @@ public class HotelController {
 	HotelService hotelService;
 
 	@Autowired
-	UserFormService userFormService;
-
-	@Autowired
 	UserBuyerService userBuyerService;
 
 	@Autowired
 	UserSellerService userSellerService;
-	
+
 	@Autowired
 	SellerDetailsService sellerDetailsService;
-	
+
 	@Autowired
 	BuyerDetailsService buyerDetailsService;
 
@@ -76,85 +70,61 @@ public class HotelController {
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 
-//	@PostMapping("/login/buyer")
-//	public ResponseEntity<String> loginBuyer(@RequestBody BuyerDetails request) {
-//		Authentication authentication = authenticationManager.authenticate(
-//				new UsernamePasswordAuthenticationToken(request.getBuyerEmail(), request.getBuyerPassword()));
-//		if (authentication.isAuthenticated()) {
-//			return new ResponseEntity<>(jwtService.generateToken(request.getBuyerEmail(), "buyer"), HttpStatus.OK);
-//		} else {
-//			throw new UsernameNotFoundException("Invalid user request!");
-//		}
-//	}
-	
 	@PostMapping("/login/buyer")
 	public ResponseEntity<Map<String, Object>> loginBuyer(@RequestBody BuyerDetails request) {
-	    // Check if buyer already exists using BuyerDetailsService
-	    Optional<BuyerDetails> existingBuyer = buyerDetailsService.findBuyerByEmail(request.getBuyerEmail());
-	    if (!existingBuyer.isPresent()) {
-	        // Save new buyer details if not exists
-	        buyerDetailsService.saveBuyerDetails(request);
-	    }
-	    // Authenticate the buyer
-	    Authentication authentication = authenticationManager.authenticate(
-	            new UsernamePasswordAuthenticationToken(request.getBuyerEmail(), request.getBuyerPassword()));
-	    if (authentication.isAuthenticated()) {
-	        // Assuming existingBuyer is now present after save
-	        existingBuyer = buyerDetailsService.findBuyerByEmail(request.getBuyerEmail());
-	        BuyerDetails buyer = existingBuyer.get();
-	        System.out.println(buyer);
-	        String token = jwtService.generateToken(buyer.getBuyerEmail(), "buyer");
-	        Map<String, Object> response = new HashMap<>();
-	        response.put("token", token);
-	        response.put("buyerId", buyer.getBuyerId()); 
-	        response.put("buyerEmail", buyer.getBuyerEmail());
-	        return new ResponseEntity<>(response, HttpStatus.OK);
-	    } else {
-	        throw new UsernameNotFoundException("Invalid user request!");
-	    }
+		// Check if buyer already exists using BuyerDetailsService
+		Optional<BuyerDetails> existingBuyer = buyerDetailsService.findBuyerByEmail(request.getBuyerEmail());
+		if (!existingBuyer.isPresent()) {
+			// Save new buyer details if not exists
+			buyerDetailsService.saveBuyerDetails(request);
+		}
+		// Authenticate the buyer
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(request.getBuyerEmail(), request.getBuyerPassword()));
+		if (authentication.isAuthenticated()) {
+			// Assuming existingBuyer is now present after save
+			existingBuyer = buyerDetailsService.findBuyerByEmail(request.getBuyerEmail());
+			BuyerDetails buyer = existingBuyer.get();
+			System.out.println(buyer);
+			String token = jwtService.generateToken(buyer.getBuyerEmail(), "buyer");
+			Map<String, Object> response = new HashMap<>();
+			response.put("token", token);
+			response.put("buyerId", buyer.getBuyerId());
+			response.put("buyerEmail", buyer.getBuyerEmail());
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} else {
+			throw new UsernameNotFoundException("Invalid user request!");
+		}
 	}
-	
 
-//	@PostMapping("/login/seller")
-//	public ResponseEntity<String> loginSeller(@RequestBody SellerDetails request) {
-//		Authentication authentication = authenticationManager.authenticate(
-//				new UsernamePasswordAuthenticationToken(request.getSellerEmail(), request.getSellerPassword()));
-//		if (authentication.isAuthenticated()) {
-//			// Pass "seller" as the role
-//			return new ResponseEntity<>(jwtService.generateToken(request.getSellerEmail(), "seller"), HttpStatus.OK);
-//		} else {
-//			throw new UsernameNotFoundException("Invalid user request!");
-//		}
-//	}
-	
 	@PostMapping("/login/seller")
 	public ResponseEntity<Map<String, Object>> loginSeller(@RequestBody SellerDetails request) {
-	    // Check if seller already exists using SellerDetailsService
-	    Optional<SellerDetails> existingSeller = sellerDetailsService.findSellerByEmail(request.getSellerEmail());
-	    if (!existingSeller.isPresent()) {
-	        // Save new seller details if not exists
-	        sellerDetailsService.saveSellerDetails(request);
-	    }
-	    // Authenticate the seller
-	    Authentication authentication = authenticationManager.authenticate(
-	            new UsernamePasswordAuthenticationToken(request.getSellerEmail(), request.getSellerPassword()));
-	    if (authentication.isAuthenticated()) {
-	        // Assuming existingSeller is now present after save
-	        existingSeller = sellerDetailsService.findSellerByEmail(request.getSellerEmail());
-	        SellerDetails seller = existingSeller.get();
-	        System.out.println(seller);
-	        String token = jwtService.generateToken(seller.getSellerEmail(), "seller");
-	        Map<String, Object> response = new HashMap<>();
-	        response.put("token", token);
-	        response.put("sellerId", seller.getSellerId()); 
-	        response.put("sellerEmail", seller.getSellerEmail());
-	        return new ResponseEntity<>(response, HttpStatus.OK);
-	    } else {
-	        throw new UsernameNotFoundException("Invalid user request!");
-	    }
+		// Check if seller already exists using SellerDetailsService
+		Optional<SellerDetails> existingSeller = sellerDetailsService.findSellerByEmail(request.getSellerEmail());
+		if (!existingSeller.isPresent()) {
+			// Save new seller details if not exists
+			sellerDetailsService.saveSellerDetails(request);
+		}
+		// Authenticate the seller
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(request.getSellerEmail(), request.getSellerPassword()));
+		if (authentication.isAuthenticated()) {
+			// Assuming existingSeller is now present after save
+			existingSeller = sellerDetailsService.findSellerByEmail(request.getSellerEmail());
+			SellerDetails seller = existingSeller.get();
+			System.out.println(seller);
+			String token = jwtService.generateToken(seller.getSellerEmail(), "seller");
+			Map<String, Object> response = new HashMap<>();
+			response.put("token", token);
+			response.put("sellerId", seller.getSellerId());
+			response.put("sellerEmail", seller.getSellerEmail());
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} else {
+			throw new UsernameNotFoundException("Invalid user request!");
+		}
 	}
 
-	@GetMapping("/search")  //buyer
+	@GetMapping("/search") // buyer
 	public ResponseEntity<List<SearchParameters>> searchHotels(@RequestParam String location,
 			@RequestParam String checkInDate, @RequestParam String checkOutDate) {
 		List<SearchParameters> searchResults = hotelService.searchHotels(location, checkInDate, checkOutDate);
@@ -162,31 +132,46 @@ public class HotelController {
 		return ResponseEntity.ok(searchResults);
 	}
 
-	@PostMapping("/savedetails")  
-	public ResponseEntity<?> saveDetails(@RequestBody UserForm userForm) {
-		userFormService.saveUserDetails(userForm);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
-	
-
-	@GetMapping("/hotel-details/{id}")  //buyer
+	@GetMapping("/hotel-details/{id}") // buyer
 	public ResponseEntity<SearchParameters> getHotelDetails(@PathVariable("id") int id) {
 		SearchParameters searchParameters = hotelService.getHotelDetails(id);
 		return ResponseEntity.ok(searchParameters);
-
 	}
-	
+
 	@PostMapping("/add")  //seller
 	public ResponseEntity<SearchParameters> addSearchParameters(@RequestBody SearchParameters searchParameters) {
 		SearchParameters savedSearchParameters = hotelService.save(searchParameters);
 		return new ResponseEntity<>(savedSearchParameters, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/hotel-details")  //buyer
+//	@PostMapping("/add")
+//	public ResponseEntity<SearchParameters> addSearchParameters(
+//			@RequestPart("searchParameters") SearchParameters searchParameters,
+//			@RequestPart("images") MultipartFile[] images) {
+//
+//		// Save images as byte arrays
+//		List<byte[]> imageBytesList = new ArrayList<>();
+//		for (MultipartFile image : images) {
+//			try {
+//				byte[] imageBytes = image.getBytes();
+//				imageBytesList.add(imageBytes);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//			}
+//		}
+//
+//		searchParameters.setImages(imageBytesList);
+//		SearchParameters savedSearchParameters = hotelService.save(searchParameters);
+//		return new ResponseEntity<>(savedSearchParameters, HttpStatus.CREATED);
+//	}
+
+	@GetMapping("/hotel-details") // buyer
 	public ResponseEntity<List<SearchParameters>> getAllHotelDetails() {
 		List<SearchParameters> searchParameters = hotelService.getAllHotelDetails();
 		return ResponseEntity.ok(searchParameters);
 	}
+	
 	
 
 }

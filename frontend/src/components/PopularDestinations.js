@@ -1,9 +1,27 @@
 
 import React, { Component } from 'react';
 import './PopularDestinations.css';
+import SkeletonLoader from '../helpers/SkeletonLoader';
 
 class PopularDestinations extends Component {
-    render() {
+    state = {
+        loading: true,
+    };
+
+    componentDidMount() {
+        // Simulate an API call
+        setTimeout(() => {
+            this.setState({ loading: false });
+        }, 1000); // Adjust the timeout as needed
+    }
+
+
+    render() {  
+        const { loading } = this.state;
+
+        if (loading) {
+            return <SkeletonLoader />;
+        }
         return (
             <div className="popular-destinations">
                 <h2>Popular Destinations</h2>
@@ -60,14 +78,6 @@ class PopularDestinations extends Component {
                             <img src="/images/Udaipur.jpeg" alt="City 15" />
                         </div>
                     </div>
-                </div>
-                <div class="swatch">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
                 </div>
             </div>
         );

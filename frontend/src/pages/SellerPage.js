@@ -89,7 +89,6 @@ class SellerPage extends PureComponent {
         });
 
         if (response.ok) {
-            // If the request was successful, clear the form
             this.setState({
                 hotelName: '',
                 price: '',
@@ -106,7 +105,6 @@ class SellerPage extends PureComponent {
 
             alert('Property added successfully');
         } else {
-            // If the request was not successful, show an error message
             alert('Failed to add property');
         }
     }

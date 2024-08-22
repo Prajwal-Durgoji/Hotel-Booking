@@ -1,15 +1,14 @@
 
 .hotel-card {
     display: flex;
-    /* border: 1px solid black; */
     margin-bottom: 10px;
     padding: 10px;
-    width: 100%; /* Make the card take the full width of its parent */
+    width: 100%; 
     max-width: 500px;
     height: 200px;
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Shadow effect */
-    transition: 0.3s; /* Transition effect */
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+    transition: 0.3s; 
 
 }
 
@@ -34,12 +33,12 @@
     display: block;
     justify-content: center;
     margin: 10px auto;
-    margin-left: 710px;
-    margin-top: -520px;
+    margin-left: 610px;
+    margin-top: -480px;
     margin-bottom: 120px;
     padding: 20px;
     width: 34%; 
-    border: 2px solid red;
+    /* border: 2px solid red; */
     
 }
 
@@ -103,12 +102,15 @@
 }
 
 .weather-info {
-    background-color: #16a085; /* Different background to distinguish section */
+    background-color: #16a085; 
     padding: 10px;
-    margin-top: 20px; /* Space from the filters above */
-    border-radius: 4px; /* Consistent rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lighter shadow for this section */
-    color: #ecf0f1; /* Maintain light text for readability */
+    margin-top: 20px; 
+    border-radius: 4px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    color: #ecf0f1; 
 }
+
+
+
 
 

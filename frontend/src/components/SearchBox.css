@@ -1,97 +1,265 @@
-.search-box {
-  background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  padding: 20px;
-  width: 60%;
-  margin: 20px 210px;
-  position: relative;
-  right: 400px;
-  color: white;
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --primary-color: #ff833e;
+  --primary-color-dark: #db6f35;
+  --text-dark: #333333;
+  --text-light: #767268;
+  --white: #ffffff;
+  --max-width: 1200px;
+  --header-font: "Bebas Neue", sans-serif;
 }
 
-.search-box__text {
+.search-box__container {
+  /* border: 1px solid #ec551f; */
+  position: relative;
+  left: 210px;
+  width: 585px; /* Decrease the width */
+  background-color: rgba(255, 255, 255, 0.9); /* Optional: Add a background color */
+  
+}
+
+.search-box__container h1{
+  font-size: 5rem;
+  font-weight: 500;
+  font-family: var(--header-font);
+  color: var(--text-dark);
+}
+
+.search-box__container h1 span {
+  color: var(--primary-color);
+}
+
+.search-box__container p {
+  margin-top: -60px;
+  columns: var(--text-light);
+  line-height: 1.75rem;
+}
+
+.travel-container {
+  position: absolute;
+  bottom: 150px; /* Adjust this value as needed to move upwards */
+  right: 252px; /* Aligns the container to the right */
+  width: 460px; /* Set a fixed width */
+  height: 450px; /* Set a fixed height */
+}
+
+.travel-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the container */
+  position: absolute;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  z-index: -1; /* Places the image behind the content */
+}
+
+
+
+.header__image__card {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Optional: Add a box shadow */
+  position: absolute;
+  width: 150px; /* Adjust as needed */
+  height: 35px; /* Adjust as needed */
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  color: white;
-  margin-bottom: 20px;
-  text-align: left;
+  color: rgb(0, 0, 0);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+}
+
+
+
+.header__image__card i {
+  color: orange; /* Set the icon color to orange */
+}
+
+.header__image__card-1 {
+  top: 95px;
+  left: -40px;
+  animation-delay: 0.5s;
+}
+
+.header__image__card-2 {
+  top: 30px;
+  right: -10px;
+  animation-delay: 1s;
+}
+
+.header__image__card-3 {
+  bottom: 170px;
+  left: -20px;
+  animation-delay: 1.5s;
+}
+
+
+.header__image__card-4 {
+  bottom: 130px;
+  right: -50px;
+  animation-delay: 2s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header__image__card span {
+  display: flex; /* Change to flex to align icon and text */
+  align-items: center; /* Center align items vertically */
+  margin-right: 10px; /* Space between icon and text */
+  font-size: 1.5em; /* Adjust icon size as needed */
+}
+
+.outside-image {
+  position: absolute;
+  top: -50px; /* Adjust as needed to position the image outside the circle */
+  width: 300px; /* Adjust as needed to ensure the full image is visible */
+  z-index: -1; /* Ensure it appears above other content */
+}
+
+.outside-image {
+  position: relative;
+  animation: slideIn 1.5s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+
+.search-box__input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 0.8rem;
+  position: relative;
+  border-radius: 15px;
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.1), 
+    0 6px 20px rgba(0, 0, 0, 0.1), 
+    0 8px 30px rgba(0, 0, 0, 0.1); 
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow:auto;
+  list-style-type: none;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-inner {
+  max-height: 200px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Disable horizontal scrolling */
+}
+
+.dropdown li {
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding-left: 1px; 
+}
+
+.dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
+.location-icon {
+  margin-right: 8px; /* Space between icon and text */
+  margin-left: -4px; /* Move icon to the left */
 }
 
 .input-group label {
   display: block;
   color: white;
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
 }
 
-
-.input-group input {
-  width: 50%;
+.input-group input,
+.input-group select {
   padding: 10px;
-  border: 1px solid #ced4da;
   border-radius: 5px;
+  width: 121px;
+  font-size: 1.2em;
+  border: 2px solid white;
+  margin-bottom: 20px;
 }
 
-
-.input-group label, .input-group input {
-  display: block;
-  font-size: 1.2em;
-
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left: 10px;
 }
 
 .date-inputs {
   display: flex;
-  gap: 80px;
-  margin-bottom: 20px;
-}
-
-.date-inputs .input-group input {
-  width: 100%; 
-}
-
-.input-group {
-  margin-bottom: 40px; 
+  gap: 20px;
+  justify-content: center; /* Center-aligns the date inputs */
+  /* margin-bottom: 10px; */
 }
 
 .search-button {
-  background-color: #007bff;
+  background-color: orange;
+  border: 2px solid white;
   color: white;
-  border: none;
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
+  font-size: 12px;
   cursor: pointer;
-  border-radius: 5px;
-}
-
-.rooms-options {
-  display: flex;
-  gap: 120px;
-  font-size: 1.1em;
-  margin-bottom: 20px;
+  border-radius: 10px;
+  margin-left: 3px;
+  margin-top: 2px;
 }
 
 .search-button:hover {
   background-color: #0056b3;
+  
 }
 
 .input-group select {
-  width: 50%;
   padding: 6px;
-  border: 1px solid #ced4da;
+  width: 124px;
+  /* border: 1px solid #ced4da; */
   border-radius: 5px;
-  font-size: 1.2em;
+  font-size: 1.0em;
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  
 }
 
 .input-group select:focus {
-  border-color: #80bdff;
+  border-color: #ffffff;
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
 }
 

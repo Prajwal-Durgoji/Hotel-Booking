@@ -11,9 +11,8 @@ class HomePage extends PureComponent {
             hotels: [],
             weather: null,
             filters: {
-                priceRange: [0, 10000], 
-                roomOption: '', 
-                area: []
+                priceRange: [0, 10000],
+                roomOption: ''
             },
             currentPriceRange: 10000
         }
@@ -24,10 +23,11 @@ class HomePage extends PureComponent {
         if (locationState) {
             this.setState({
                 hotels: locationState.hotels,
-                weather: locationState.weather 
+                weather: locationState.weather
             });
             console.log("HomePage state:", locationState);
             console.log("Weather state:", locationState.weather);
+            console.log("Location state:", locationState.location);
         }
     }
 
@@ -37,26 +37,13 @@ class HomePage extends PureComponent {
     }
 
     handleFilterChange = (filterName, value) => {
-        if (filterName === 'area') {
-            // For area, we expect an array of selected options
-            const options = [...value.options].filter(o => o.selected).map(o => o.value);
-            this.setState(prevState => ({
-                filters: {
-                    ...prevState.filters,
-                    [filterName]: options
-                }
-            }));
-        } else {
-            // For other filters, no change
-            this.setState(prevState => ({
-                filters: {
-                    ...prevState.filters,
-                    [filterName]: value
-                },
-                currentPriceRange: filterName === 'priceRange' ? value[1] : prevState.currentPriceRange
-            // }));
+        this.setState(prevState => ({
+            filters: {
+                ...prevState.filters,
+                [filterName]: value
+            },
+            currentPriceRange: filterName === 'priceRange' ? value[1] : prevState.currentPriceRange
         }), () => console.log("Filters updated:", this.state.filters));
-        }
     };
 
     applyFilters = () => {
@@ -64,8 +51,7 @@ class HomePage extends PureComponent {
         return hotels.filter(hotel => {
             const priceMatch = hotel.price >= filters.priceRange[0] && hotel.price <= filters.priceRange[1];
             const roomMatch = filters.roomOption ? hotel.roomOption === filters.roomOption : true;
-            // const areaMatch = filters.area ? hotel.area === filters.area : true;
-            console.log("Filtering hotel:", hotel.name, { priceMatch, roomMatch}); 
+            console.log("Filtering hotel:", hotel.name, { priceMatch, roomMatch });
             return priceMatch && roomMatch;
         });
     }
@@ -73,7 +59,7 @@ class HomePage extends PureComponent {
     render() {
         const { weather, filters, currentPriceRange } = this.state;
         const filteredHotels = this.applyFilters();
-        console.log("Filtered hotels:", filteredHotels); 
+        console.log("Filtered hotels:", filteredHotels);
         return (
             <>
                 <div className="filters">
@@ -89,9 +75,6 @@ class HomePage extends PureComponent {
                             <option value="3BHK">3BHK</option>
                             <option value="4BHK">4BHK</option>
                         </select>
-                    </label>
-                    <label>Area:
-                        <input type="text" value={filters.area} onChange={(e) => this.handleFilterChange('area', e.target.value)} />
                     </label>
                     {weather && (
                         <div className="weather-info">

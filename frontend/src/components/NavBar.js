@@ -26,8 +26,7 @@ class NavBar extends Component {
             <nav className="navbar">
                 <h1 className="navbar-heading" onClick={this.handleLogoClick}>Rentify</h1>
                 <div className="button-group">
-                    <button className='b1' onClick={this.handleLoginClick} disabled={!!username}>Login</button>
-                    <button className='b1' disabled={!!username}>Register</button>
+                    <button className='custom-btn btn-9' onClick={this.handleLoginClick} disabled={!!username}>Login/SignUp</button>
                 </div>
                 {username && <div className="username-display">Welcome, {username}!</div>}
             </nav>
