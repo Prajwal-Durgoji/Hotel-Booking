@@ -24,4 +24,5 @@ This Hotel Management Application is a comprehensive system designed to facilita
 ### Prerequisites
 - Java JDK 8
 - MySQL 5.7 or later
-- Node.js 12 or later
+- Spring Boot
+- React.js
