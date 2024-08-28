@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +30,8 @@ import com.system.sheshare.service.JwtService;
 import com.system.sheshare.service.SellerDetailsService;
 import com.system.sheshare.service.UserBuyerService;
 import com.system.sheshare.service.UserSellerService;
+
+import jakarta.transaction.Transactional;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:3000")
@@ -138,40 +139,15 @@ public class HotelController {
 		return ResponseEntity.ok(searchParameters);
 	}
 
-	@PostMapping("/add")  //seller
-	public ResponseEntity<SearchParameters> addSearchParameters(@RequestBody SearchParameters searchParameters) {
-		SearchParameters savedSearchParameters = hotelService.save(searchParameters);
-		return new ResponseEntity<>(savedSearchParameters, HttpStatus.CREATED);
-	}
-
-//	@PostMapping("/add")
-//	public ResponseEntity<SearchParameters> addSearchParameters(
-//			@RequestPart("searchParameters") SearchParameters searchParameters,
-//			@RequestPart("images") MultipartFile[] images) {
-//
-//		// Save images as byte arrays
-//		List<byte[]> imageBytesList = new ArrayList<>();
-//		for (MultipartFile image : images) {
-//			try {
-//				byte[] imageBytes = image.getBytes();
-//				imageBytesList.add(imageBytes);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//			}
-//		}
-//
-//		searchParameters.setImages(imageBytesList);
-//		SearchParameters savedSearchParameters = hotelService.save(searchParameters);
-//		return new ResponseEntity<>(savedSearchParameters, HttpStatus.CREATED);
-//	}
-
+	@PostMapping("/add")
+    public ResponseEntity<SearchParameters> addSearchParameters(@RequestBody SearchParameters searchParameters) {
+        SearchParameters savedSearchParameters = hotelService.save(searchParameters);
+        return new ResponseEntity<>(savedSearchParameters, HttpStatus.CREATED);
+    }
+	
 	@GetMapping("/hotel-details") // buyer
 	public ResponseEntity<List<SearchParameters>> getAllHotelDetails() {
 		List<SearchParameters> searchParameters = hotelService.getAllHotelDetails();
 		return ResponseEntity.ok(searchParameters);
 	}
-	
-	
-
 }

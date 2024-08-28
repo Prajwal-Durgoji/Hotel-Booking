@@ -92,7 +92,6 @@ class HomePage extends PureComponent {
                                 <h2>{hotel.hotelName}</h2>
                                 <p>Price: ₹{hotel.price}</p>
                                 <p>Rooms: {hotel.roomOption}</p>
-
                                 <div className="nearby-container">
                                     {Array.from(hotel.nearby).map((place, index) => (
                                         <div key={index} className="nearby-place">

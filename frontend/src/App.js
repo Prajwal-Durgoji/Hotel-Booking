@@ -40,6 +40,7 @@ class App extends Component {
             <Route path="/login" element={<LoginUser />} />
             <Route path="/seller" element={<SellerPage />} />
             <Route path="/properties" element={<Properties />} />
+            {/* <Route path="/update" element={< />} */}
             <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
         </Router>

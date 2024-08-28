@@ -72,7 +72,9 @@ public class SecurityConfig {
 				// Public endpoints
 				.requestMatchers("/api/hotels/register/buyer", "/api/hotels/register/seller",
 						"/api/hotels/login/seller", "/api/hotels/login/buyer", "/api/hotels/search",
-						"/api/hotels/hotel-details","/api/hotels/hotel-details/{id}","/images/**","/api/hotels/savedetails").permitAll()
+						"/api/hotels/hotel-details", "/api/hotels/hotel-details/{id}", "/images/**",
+						"/api/hotels/savedetails","/api/hotels/add")
+				.permitAll()
 				// All other requests
 				.anyRequest().authenticated())
 				.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

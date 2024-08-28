@@ -4,7 +4,6 @@ import './NavBar.css'
 import { useNavigate } from 'react-router-dom';
 import { UsernameContext } from '../helpers/UsernameContext';
 
-
 class NavBar extends Component {
     handleLoginClick = () => {
         this.props.navigate('/login');

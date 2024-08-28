@@ -6,7 +6,6 @@ import { useLocation } from 'react-router-dom';
 class SellerPage extends PureComponent {
     constructor(props) {
         super(props)
-
         this.state = {
             hotelName: '',
             price: '',
@@ -18,7 +17,8 @@ class SellerPage extends PureComponent {
             hotelInformation: '',
             nearby: [],
             area: '',
-            roomOption: ''
+            roomOption: '',
+            sellerEmail: ''
         }
     }
 
@@ -49,7 +49,6 @@ class SellerPage extends PureComponent {
 
     }
 
-
     formatDate = (dateString) => {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, '0');
@@ -60,13 +59,10 @@ class SellerPage extends PureComponent {
 
     handleSubmit = async (event) => {
         event.preventDefault();
-
         const checkInDateFormatted = this.formatDate(this.state.checkInDate);
         const checkOutDateFormatted = this.formatDate(this.state.checkOutDate);
-
         const token = localStorage.getItem('authToken');
 
-        // Send a request to the add property endpoint
         const response = await fetch('http://localhost:8080/api/hotels/add', {
             method: 'POST',
             headers: {
@@ -84,7 +80,8 @@ class SellerPage extends PureComponent {
                 hotelInformation: this.state.hotelInformation,
                 nearby: this.state.nearby.map(place => ({ place: place.trim() })),
                 area: this.state.area,
-                roomOption: this.state.roomOption
+                roomOption: this.state.roomOption,
+                sellerEmail: this.state.sellerEmail
             }),
         });
 
@@ -100,9 +97,9 @@ class SellerPage extends PureComponent {
                 hotelInformation: '',
                 nearby: [],
                 area: '',
-                roomOption: ''
+                roomOption: '',
+                sellerEmail: ''
             });
-
             alert('Property added successfully');
         } else {
             alert('Failed to add property');
@@ -113,7 +110,6 @@ class SellerPage extends PureComponent {
         return (
             <div className="seller-page">
                 <h1>Add Property</h1>
-
                 <form onSubmit={this.handleSubmit} className="seller-form">
                     <div className="form-group">
                         <label>Hotel Name:</label>

@@ -19,7 +19,6 @@ public class Amenity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "search_parameters_id")
-    
     @JsonBackReference
     private SearchParameters searchParameters;
     private String amenity;

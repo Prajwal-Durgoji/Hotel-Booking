@@ -22,7 +22,7 @@ class SearchBoxClass extends PureComponent {
         try {
             const response = await fetch('https://api.countrystatecity.in/v1/countries/IN/cities', {
                 headers: {
-                    'X-CSCAPI-KEY': 'am5pQWtqUUpzbzVtTkZ4c2NjM082NXF6VFNIZzBvSUREcGRvbERNUw==' // Replace with your API key
+                    'X-CSCAPI-KEY': 'am5pQWtqUUpzbzVtTkZ4c2NjM082NXF6VFNIZzBvSUREcGRvbERNUw==' 
                 }
             });
             if (!response.ok) {
