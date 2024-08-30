@@ -105,7 +105,7 @@ class SearchBoxClass extends PureComponent {
                                 value={searchQuery}
                                 placeholder="Enter City"
                                 onChange={this.handleSearchChange}
-                                autocomplete="off"
+                                autoComplete="off"
                             />
                             {searchQuery && (
                                 <ul className="dropdown">

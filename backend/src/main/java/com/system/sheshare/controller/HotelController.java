@@ -31,8 +31,6 @@ import com.system.sheshare.service.SellerDetailsService;
 import com.system.sheshare.service.UserBuyerService;
 import com.system.sheshare.service.UserSellerService;
 
-import jakarta.transaction.Transactional;
-
 @Controller
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/hotels")
@@ -86,7 +84,6 @@ public class HotelController {
 			// Assuming existingBuyer is now present after save
 			existingBuyer = buyerDetailsService.findBuyerByEmail(request.getBuyerEmail());
 			BuyerDetails buyer = existingBuyer.get();
-			System.out.println(buyer);
 			String token = jwtService.generateToken(buyer.getBuyerEmail(), "buyer");
 			Map<String, Object> response = new HashMap<>();
 			response.put("token", token);
@@ -113,7 +110,6 @@ public class HotelController {
 			// Assuming existingSeller is now present after save
 			existingSeller = sellerDetailsService.findSellerByEmail(request.getSellerEmail());
 			SellerDetails seller = existingSeller.get();
-			System.out.println(seller);
 			String token = jwtService.generateToken(seller.getSellerEmail(), "seller");
 			Map<String, Object> response = new HashMap<>();
 			response.put("token", token);

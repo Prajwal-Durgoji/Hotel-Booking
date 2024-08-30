@@ -11,8 +11,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 
@@ -34,18 +32,15 @@ public class SearchParameters {
     @Column(columnDefinition = "LONGTEXT")
     private String hotelInformation;
 
-    @OneToMany(mappedBy = "searchParameters", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "searchParameters", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<Amenity> amenities;
 
-    @OneToMany(mappedBy = "searchParameters", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "searchParameters", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<NearbyPlace> nearby;
     
     private String sellerEmail;
-//    @ManyToOne
-//    @JoinColumn(name = "seller_id", nullable = false)
-//    private SellerDetails sellerDetails;
 
 	public int getId() {
 		return id;
@@ -150,10 +145,4 @@ public class SearchParameters {
 	public void setSellerEmail(String sellerEmail) {
 		this.sellerEmail = sellerEmail;
 	}
-    
-
-	
-
-	
-
 }

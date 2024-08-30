@@ -33,7 +33,7 @@ class PopularDestinations extends Component {
                         <div className="image-subtext">Financial Capital of India</div>
                     </div>
                     <div className="city-card-side">
-                        <img src="/images/Ho Chi Minh.jpeg" alt="City 2" />
+                        <img src="/images/Paris.jpeg" alt="City 2" />
                         <div className="image-container">
                             <img src="/images/Paris.jpeg" alt="City 3" />
                         </div>
