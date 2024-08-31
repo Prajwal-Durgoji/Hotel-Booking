@@ -1,31 +1,29 @@
-import React, { Component, useContext } from 'react';
+import React, { useContext,useRef } from 'react';
 import './LoginUser.css'
 import { useNavigate } from 'react-router-dom';
 import { UsernameContext } from '../helpers/UsernameContext';
 
-class LoginUser extends Component {
-  constructor(props) {
-    super(props);
+const LoginUser = ({ setUsername, navigate }) => {
+  const usernameRef = useRef('');
+  const passwordRef = useRef('');
+  const userTypeRef = useRef('seller');
 
-    this.state = {
-      username: '',
-      password: '',
-      userType: 'seller' // Add userType to state
-    };
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    if (name === 'username') {
+      usernameRef.current = value;
+    } else if (name === 'password') {
+      passwordRef.current = value;
+    } else if (name === 'userType') {
+      userTypeRef.current = value;
+    }
+  };
 
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleInputChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
-
-  async handleSubmit(event) {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const { username, password, userType } = this.state;
+    const username = usernameRef.current;
+    const password = passwordRef.current;
+    const userType = userTypeRef.current;
     const endpoint = userType === 'seller' ? 'login/seller' : 'login/buyer';
     const response = await fetch(`http://localhost:8080/api/hotels/${endpoint}`, {
       method: 'POST',
@@ -42,46 +40,40 @@ class LoginUser extends Component {
       const data = await response.json();
       console.log('Login response:', data);
       localStorage.setItem('authToken', data.token); // Save the token to local storage
-      this.props.setUsername(username);
+      setUsername(username);
       if (userType === 'seller') {
-        this.props.navigate('/seller', { state: { sellerId: data.sellerId, sellerEmail: data.sellerEmail } });
+        navigate('/seller', { state: { sellerId: data.sellerId, sellerEmail: data.sellerEmail } });
       } else {
-        this.props.navigate('/'); // Navigate back for buyer
+        navigate('/'); // Navigate back for buyer
       }
     } else {
       alert('Invalid username or password');
     }
-  }
+  };
 
-  render() {
-    return (
-      <UsernameContext.Consumer>
-        {({ setUsername }) => (
-          <div className="login-container">
-            <h2>Login</h2>
-            <form className="login-form" onSubmit={this.handleSubmit}>
-              <div className="form-group">
-                <label>Username:</label>
-                <input type="text" name="username" onChange={this.handleInputChange} />
-              </div>
-              <div className="form-group">
-                <label>Password:</label>
-                <input type="password" name="password" onChange={this.handleInputChange} />
-              </div>
-              <div className="form-group">
-                <select name="userType" onChange={this.handleInputChange} value={this.state.userType}>
-                  <option value="seller">Seller</option>
-                  <option value="buyer">Buyer</option>
-                </select>
-              </div>
-              <input className="submit-button" type="submit" value="Submit" />
-            </form>
-          </div>
-        )}
-      </UsernameContext.Consumer>
-    );
-  }
-}
+  return (
+    <div className="login-container">
+      <h2>Login</h2>
+      <form className="login-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Username:</label>
+          <input type="text" name="username" onChange={handleInputChange} />
+        </div>
+        <div className="form-group">
+          <label>Password:</label>
+          <input type="password" name="password" onChange={handleInputChange} />
+        </div>
+        <div className="form-group">
+          <select name="userType" onChange={handleInputChange} defaultValue="seller">
+            <option value="seller">Seller</option>
+            <option value="buyer">Buyer</option>
+          </select>
+        </div>
+        <input className="submit-button" type="submit" value="Submit" />
+      </form>
+    </div>
+  );
+};
 
 const LoginUserWithNavigate = () => {
   const navigate = useNavigate();

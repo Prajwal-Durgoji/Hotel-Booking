@@ -1,52 +1,39 @@
-import React, { PureComponent } from 'react'
-import './HotelPage.css'
+import './HotelPage.css';
 import { useLocation } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 
-class HotelPage extends PureComponent {
-    constructor(props) {
-        super(props)
+const HotelPage = () => {
+  const location = useLocation();
+  const hotelRef = useRef(null);
+  const [, setRender] = useState(false); 
 
-        this.state = {
-            hotel: null
-        }
-    }
+  useEffect(() => {
+    const hotelId = location.state;
+    fetch(`http://localhost:8080/api/hotels/hotel-details/${hotelId}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        hotelRef.current = data;
+        setRender(prev => !prev); 
+      })
+      .catch(error => console.error('Error:', error));
+  }, [location.state]);
 
-    componentDidMount() {
-        const hotelId = this.props.location.state;
-
-        // Fetch the hotel information and amenities
-        fetch(`http://localhost:8080/api/hotels/hotel-details/${hotelId}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                this.setState({ hotel: data });
-            })
-            .catch(error => console.error('Error:', error));
-    }
-
-    render() {
-        return (
-            <div>
-                {this.state.hotel && (
-                    <div className='hotel-page-container'>
-                        <h2>{this.state.hotel.hotelName}</h2>
-                        <p>{this.state.hotel.hotelInformation}</p>
-                        <div className="amenities-container">
-                            {this.state.hotel.amenities && this.state.hotel.amenities.map((amenity, index) => (
-                                <p key={index}>{amenity.amenity}</p>
-                            ))}
-                        </div>
-                        <button className='ava-button'>See Availability</button> 
-                    </div>
-                )}
-            </div>
-        )
-    }
-}
-
-const HotelPageBox = () => {
-    const location = useLocation();
-    return <HotelPage location={location} />
-}
-
-export default HotelPageBox
+  return (
+    <div>
+      {hotelRef.current && (
+        <div className='hotel-page-container'>
+          <h2>{hotelRef.current.hotelName}</h2>
+          <p>{hotelRef.current.hotelInformation}</p>
+          <div className="amenities-container">
+            {hotelRef.current.amenities && hotelRef.current.amenities.map((amenity, index) => (
+              <p key={index}>{amenity.amenity}</p>
+            ))}
+          </div>
+          <button className='ava-button'>See Availability</button>
+        </div>
+      )}
+    </div>
+  );
+};
+export default HotelPage;
