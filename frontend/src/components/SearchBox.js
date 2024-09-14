@@ -9,14 +9,14 @@ const SearchBox = () => {
     const [checkOutDate, setCheckOutDate] = useState('');
     const [cities, setCities] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [loading, setLoading] = useState(false); 
+    const [loading, setLoading] = useState(false);
     const searchInputRef = useRef(null);
 
     const fetchCities = useCallback(async () => {
         try {
             const response = await fetch('https://api.countrystatecity.in/v1/countries/IN/cities', {
                 headers: {
-                    'X-CSCAPI-KEY': 'am5pQWtqUUpzbzVtTkZ4c2NjM082NXF6VFNIZzBvSUREcGRvbERNUw==' 
+                    'X-CSCAPI-KEY': 'am5pQWtqUUpzbzVtTkZ4c2NjM082NXF6VFNIZzBvSUREcGRvbERNUw=='
                 }
             });
             if (!response.ok) {
@@ -52,7 +52,7 @@ const SearchBox = () => {
     }, []);
 
     const handleClick = useCallback(async () => {
-        setLoading(true); 
+        setLoading(true);
         const checkInDateFormatted = formatDate(checkInDate);
         const checkOutDateFormatted = formatDate(checkOutDate);
         console.log(`Formatted Dates: Check-In: ${checkInDateFormatted}, Check-Out: ${checkOutDateFormatted}, location: ${location}`);
@@ -76,7 +76,7 @@ const SearchBox = () => {
         } catch (error) {
             console.error("Failed to fetch hotels or weather:", error);
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     }, [location, checkInDate, checkOutDate, navigate]);
 

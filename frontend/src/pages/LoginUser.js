@@ -39,12 +39,12 @@ const LoginUser = ({ setUsername, navigate }) => {
     if (response.ok) {
       const data = await response.json();
       console.log('Login response:', data);
-      localStorage.setItem('authToken', data.token); // Save the token to local storage
+      localStorage.setItem('authToken', data.token); 
       setUsername(username);
       if (userType === 'seller') {
         navigate('/seller', { state: { sellerId: data.sellerId, sellerEmail: data.sellerEmail } });
       } else {
-        navigate('/'); // Navigate back for buyer
+        navigate('/'); 
       }
     } else {
       alert('Invalid username or password');
