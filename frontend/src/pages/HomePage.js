@@ -66,7 +66,6 @@ const HomePage = () => {
 
     const filteredHotels = applyFilters();
     console.log("Filtered hotels:", filteredHotels);
-
     return (
         <>
             <div className="filters">

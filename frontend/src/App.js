@@ -30,7 +30,6 @@ class App extends Component {
             <Route path="/" element={
               <>
                 <RoomOptions />
-                {/*  */}
                 <SearchBox />
                 <PopularDestinations />
               </>

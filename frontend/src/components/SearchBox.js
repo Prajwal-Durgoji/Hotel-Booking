@@ -11,6 +11,7 @@ const SearchBox = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [loading, setLoading] = useState(false);
     const searchInputRef = useRef(null);
+    const checkOutInputRef = useRef(null);
 
     const fetchCities = useCallback(async () => {
         try {
@@ -35,9 +36,18 @@ const SearchBox = () => {
 
     const handleChange = useCallback((event) => {
         const { name, value } = event.target;
-        if (name === 'checkInDate') setCheckInDate(value);
+        if (name === 'checkInDate') {
+            setCheckInDate(value);
+            // Set default checkout date to the next day if not already set
+            if (!checkOutDate) {
+                const checkInDateObj = new Date(value);
+                const checkOutDateObj = new Date(checkInDateObj);
+                checkOutDateObj.setDate(checkOutDateObj.getDate() + 1);
+                setCheckOutDate(checkOutDateObj.toISOString().split('T')[0]);
+            }
+        }
         if (name === 'checkOutDate') setCheckOutDate(value);
-    }, []);
+    }, [checkOutDate]);
 
     const handleSearchChange = useCallback((event) => {
         setSearchQuery(event.target.value);
@@ -90,6 +100,14 @@ const SearchBox = () => {
 
     const filteredCities = cities.filter(city => city.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
+    const handleCheckInFocus = () => {
+        if (checkOutInputRef.current) {
+            setTimeout(() => {
+                checkOutInputRef.current.focus();
+            }, 0);
+        }
+    };
+
     return (
         <>
             <div className="search-box__container">
@@ -132,11 +150,24 @@ const SearchBox = () => {
                     <div className="date-inputs">
                         <div className="input-group">
                             <label>Check-in</label>
-                            <input type="date" name="checkInDate" placeholder="Check-in date" onChange={handleChange} />
+                            <input
+                                type="date"
+                                name="checkInDate"
+                                placeholder="Check-in date"
+                                onChange={handleChange}
+                                onFocus={handleCheckInFocus}
+                            />
                         </div>
                         <div className="input-group">
                             <label>Check-out</label>
-                            <input type="date" name="checkOutDate" placeholder="Check-out date" onChange={handleChange} />
+                            <input
+                                type="date"
+                                name="checkOutDate"
+                                placeholder="Check-out date"
+                                onChange={handleChange}
+                                value={checkOutDate}
+                                ref={checkOutInputRef}
+                            />
                         </div>
                     </div>
                     <button type="button" className='search-button' onClick={handleClick} disabled={loading}>
@@ -170,7 +201,7 @@ const SearchBox = () => {
         </>
     );
 };
-export default SearchBox;
 
+export default SearchBox;
 
 // 'X-CSCAPI-KEY': 'am5pQWtqUUpzbzVtTkZ4c2NjM082NXF6VFNIZzBvSUREcGRvbERNUw=='
